@@ -1,0 +1,24 @@
+Install Parcel 
+======================
+> npm install -g parcel-bundler
+
+Install faker 
+======================
+> npm install faker
+
+Install type definition file for faker 
+========================================
+> npm install @types/faker 
+
+Type defintion file extension
+================================
+<filename>.d.ts (Eg: index.d.ts)
+
+
+Execute page using Parcel
+==============================
+> parcel index.html
+
+Generate Maps API key
+=========================
+https://console.developers.google.com/
