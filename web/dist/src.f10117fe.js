@@ -129,6 +129,7 @@ var User =
 function () {
   function User(data) {
     this.data = data;
+    this.events = {};
   }
 
   User.prototype.get = function (propName) {
@@ -139,7 +140,23 @@ function () {
     Object.assign(this.data, update);
   };
 
-  User.prototype.on = function (eventName, callback) {};
+  User.prototype.on = function (eventName, callback) {
+    var handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  };
+
+  User.prototype.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+
+    if (handlers && handlers.length === 0) {
+      return;
+    }
+
+    handlers.forEach(function (event) {
+      return event();
+    });
+  };
 
   return User;
 }();
@@ -158,11 +175,13 @@ var user = new User_1.User({
   name: 'myName',
   age: 20
 });
-user.set({
-  name: 'newname'
+user.on('change', function () {
+  console.log('Change 1');
 });
-console.log(user.get('name'));
-console.log(user.get('age'));
+user.on('change', function () {
+  console.log('Change 2');
+});
+user.trigger('change');
 },{"./models/User":"src/models/User.ts"}],"C:/Users/Dell/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
