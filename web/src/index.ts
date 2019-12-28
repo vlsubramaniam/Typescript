@@ -6,7 +6,6 @@ const rootElement = document.getElementById('root');
 
 if (rootElement) {
   const userEdit = new UserEdit(rootElement, user);
-  console.log(userEdit);
   userEdit.render();
 } else {
   throw new Error('Root element not found');
